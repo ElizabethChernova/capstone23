@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 @MongoEntity(collection = "jobs")
 public class Job {
     public ObjectId id;
+
     public String name;
     public boolean active;
     public ObjectId[] competencesId;
