@@ -33,7 +33,7 @@ public class DeactivateJobController  extends TypicalController<DeactivateJob, J
     })
     public Response deactivateJob(DeactivateJob command) {
         try {
-            Result<JobActivated> result = deactivateJobHandler.handle(command);
+            Result<JobDeactivated> result = deactivateJobHandler.handle(command);
 
             if (!result.isSuccess()) {
                 return Response.status(400).entity(result.toError()).build();

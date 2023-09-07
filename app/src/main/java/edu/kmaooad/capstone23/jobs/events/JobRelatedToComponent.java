@@ -1,11 +1,11 @@
 package edu.kmaooad.capstone23.jobs.events;
-public class JobRelatedComponent {
+public class JobRelatedToComponent {
     private String jobId;
     public String getJobId() {
         return jobId;
     }
 
-    public JobRelatedComponent(String jobId) {
+    public JobRelatedToComponent(String jobId) {
         this.jobId = jobId;
     }
 }

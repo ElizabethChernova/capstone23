@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
+import
+
 class DeactivateJobControllerTest {
 
     DeactivateJobController deactivedJobController;
@@ -23,20 +25,20 @@ class DeactivateJobControllerTest {
 
     @Test
     @DisplayName("deactivating job with  valid id ")
-    void testValid() {
+    void test0() {
         assertEquals(200, deactivedJobController.deactivateJob("1"),
                 "Valid should work");
     }
 
     @Test
     @DisplayName("deactivating job with invalid id ")
-    void testValid() {
+    void test1() {
         assertEquals(400, deactivedJobController.deactivateJob("6"),
                 "Not valid should have an error");
     }
     @Test
     @DisplayName("activating job with valid id, which is already activated")
-    void testValid() {
+    void test2() {
         assertEquals(200, deactivedJobController.deactivateJob("2"),
                 "Valid, should stay deactivated, and do not change anything");
     }

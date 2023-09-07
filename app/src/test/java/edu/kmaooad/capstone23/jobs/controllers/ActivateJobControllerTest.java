@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import edu.kmaooad.capstone23.jobs.controllers.*;
+
 class ActivateJobControllerTest {
 
     ActivateJobController activedJobController;
@@ -23,20 +24,20 @@ class ActivateJobControllerTest {
 
     @Test
     @DisplayName("activating job with  valid id ")
-    void testValid() {
+    void test0() {
         assertEquals(200, activedJobController.activateJob("1"),
                 "Valid should work");
     }
 
     @Test
     @DisplayName("activating job with invalid id ")
-    void testValid() {
+    void test1() {
         assertEquals(400, activedJobController.activateJob("6"),
                 "Not valid should have an error");
     }
     @Test
     @DisplayName("activating job with valid id, which is already activated")
-    void testValid() {
+    void test2() {
         assertEquals(200, activedJobController.activateJob("2"),
                 "Valid, should stay activated, and do not change anything");
     }
