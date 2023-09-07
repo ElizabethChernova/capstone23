@@ -3,10 +3,10 @@ package edu.kmaooad.capstone23.jobs.commands;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-public class DeactivateJob {
+public class ActivateJob {
     private ObjectId jobId;
 
-    public DeactivateJob(final ObjectId jobId) {
+    public ActivateJob(final ObjectId jobId) {
         this.jobId = jobId;
     }
 
@@ -23,8 +23,8 @@ public class DeactivateJob {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DeactivateJob deactivateJob = (DeactivateJob) o;
-        return jobId.equals(deactivateJob.jobId);
+        ActivateJob activateJob = (ActivateJob) o;
+        return jobId.equals(activateJob.jobId);
     }
 
     @Override
