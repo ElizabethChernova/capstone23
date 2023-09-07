@@ -7,7 +7,7 @@ import edu.kmaooad.capstone23.common.TypicalController;
 import edu.kmaooad.capstone23.jobs.commands.DeactivateJob;
 import edu.kmaooad.capstone23.jobs.events.JobDeactivated;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
