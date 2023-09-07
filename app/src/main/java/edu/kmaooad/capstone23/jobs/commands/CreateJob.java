@@ -3,7 +3,7 @@ package edu.kmaooad.capstone23.jobs.commands;
 import org.bson.types.ObjectId;
 
 public class CreateJob {
-    private ObjectId id;
+    private ObjectId   id;
     private String name;
     private boolean active;
     private ObjectId[] competencesId;
