@@ -1,11 +1,16 @@
 package edu.kmaooad.capstone23.jobs.events;
+
+import org.bson.types.ObjectId;
+
 public class JobActivated {
-    private String jobId;
-    public String getJobId() {
+    private ObjectId jobId;
+
+    public ObjectId getJobId() {
         return jobId;
     }
 
-    public JobActivated(String jobId) {
+    public JobActivated(ObjectId jobId) {
         this.jobId = jobId;
     }
+
 }

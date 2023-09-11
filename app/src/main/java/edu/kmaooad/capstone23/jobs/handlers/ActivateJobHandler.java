@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @RequestScoped
 public class ActivateJobHandler implements CommandHandler<ActivateJob, JobActivated> {
-
     @Inject
     private JobRepository repository;
     @Override
@@ -24,12 +23,14 @@ public class ActivateJobHandler implements CommandHandler<ActivateJob, JobActiva
 
         Optional<Job> job = repository.findByIdOptional(commandDel.getJobId());
         if(job.isEmpty())
-            return new Result<>(ErrorCode.VALIDATION_FAILED, "This job do not existe");
+            return new Result<>(ErrorCode.VALIDATION_FAILED, "This job never existed");
 
         Job j = job.get();
+        j.active =true;
 
-        repository.activateJob(j);
 
-        return new Result<>(new JobActivated(commandDel.getJobId()));
+        JobActivated result = new JobActivated(j.id);
+
+        return new Result<JobActivated>(result);
     }
 }
