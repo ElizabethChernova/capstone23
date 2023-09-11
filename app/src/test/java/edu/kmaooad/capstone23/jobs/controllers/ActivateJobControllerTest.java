@@ -9,73 +9,63 @@ import edu.kmaooad.capstone23.jobs.controllers.*;
 
 class ActivateJobControllerTest {
 
-    ActivateJobController activedJobController;
 
-
-    @BeforeEach
-    void setUp() {
-        activedJobController = new ActivateJobControllerTest();
-
-
-    }
+    @Inject
+    CommandHandler<CreateJob, JobCreated> handler;
     @Test
     @DisplayName("Acrtivate job: valid input")
-    public void testValid() {
+    public void testBasicJobActivating() {
+        //CommandHandler<CreateJob, JobCreated> handler = null;
+
+        CreateJob command = new CreateJob("Teacher", false);
+        Result<JobCreated> result = handler.handle(command);
+
+//        Map<String, Object> jsonAsMap = new HashMap<>();
+//        ObjectId id = new ObjectId("64faf6ad341e202c91f76c84");
+//        jsonAsMap.put("_id", id);
+
+        given()
+                .contentType("application/json")
+                .when()
+                .delete("/jobs/activate/".concat(result.getValue().getJobId().toString()))
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    @DisplayName("Acrtivate job: valid input, but already activated")
+    public void testBasicAlreadyExistActivating() {
+        //CommandHandler<CreateJob, JobCreated> handler = null;
+
+        CreateJob command = new CreateJob("Teacher", true);
+        Result<JobCreated> result = handler.handle(command);
+
+//        Map<String, Object> jsonAsMap = new HashMap<>();
+//        ObjectId id = new ObjectId("64faf6ad341e202c91f76c84");
+//        jsonAsMap.put("_id", id);
+
+        given()
+                .contentType("application/json")
+                .when()
+                .delete("/jobs/activate/".concat(result.getValue().getJobId().toString()))
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    @DisplayName("Activate job: invalid input")
+    public void testJobActivateWithInvalidInput() {
         Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "1");
+        ObjectId id = new ObjectId("64faf6ad322e202c91f76c84");
+        jsonAsMap.put("_id", id);
 
         given()
                 .contentType("application/json")
                 .body(jsonAsMap)
                 .when()
-                .put("/jobs/activateJob")
-                .then()
-                .statusCode(200);
-   }
-    @Test
-    @DisplayName("Acrtivate job: notvalid input")
-    public void testNotValid() {
-        Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "1000");
-        given()
-                .contentType("application/json")
-                .body(jsonAsMap)
-                .when()
-                .put("/jobs/activateJob")
+                .delete("/jobs/activate/"+id)
                 .then()
                 .statusCode(400);
     }
-    @Test
-    @DisplayName("activating job with valid id, which is already activated")
-    public void testValid2() {
-        Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "2");
 
-        given()
-                .contentType("application/json")
-                .body(jsonAsMap)
-                .when()
-                .put("/jobs/activateJob")
-                .then()
-                .statusCode(200);
-    }
-//    @Test
-//    @DisplayName("activating job with  valid id ")
-//    void test0() {
-//        assertEquals(200, activedJobController.activateJob("1"),
-//                "Valid should work");
-//    }
 
-//    @Test
-//    @DisplayName("activating job with invalid id ")
-//    void test1() {
-//        assertEquals(400, activedJobController.activateJob("6"),
-//                "Not valid should have an error");
-//    }
-//    @Test
-//    @DisplayName("activating job with valid id, which is already activated")
-//    void test2() {
-//        assertEquals(200, activedJobController.activateJob("2"),
-//                "Valid, should stay activated, and do not change anything");
-//    }
+
 }

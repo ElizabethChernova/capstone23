@@ -10,77 +10,63 @@ import
 
 class DeactivateJobControllerTest {
 
-    DeactivateJobController deactivedJobController;
-//    Create job1;
-//    Create job2;
-//    Create job3;
 
-    @BeforeEach
-    void setUp() {
-        deactivedJobController = new DeactivateJobControllerTest();
-//        job1 = new CreateJob("1", "job1", true);
-//        job2 = new CreateJob("2", "job1", false);
 
-    }
+    @Inject
+    CommandHandler<CreateJob, JobCreated> handler;
     @Test
-    @DisplayName("deacrtivate job: valid input")
-    public void testValid() {
-        Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "1");
+    @DisplayName("Deacrtivate job: valid input")
+    public void testBasicJobDeactivating() {
+        //CommandHandler<CreateJob, JobCreated> handler = null;
+
+        CreateJob command = new CreateJob("Teacher", false);
+        Result<JobCreated> result = handler.handle(command);
+
+//        Map<String, Object> jsonAsMap = new HashMap<>();
+//        ObjectId id = new ObjectId("64faf6ad341e202c91f76c84");
+//        jsonAsMap.put("_id", id);
 
         given()
                 .contentType("application/json")
-                .body(jsonAsMap)
                 .when()
-                .put("/jobs/deactivateJob")
+                .delete("/jobs/deactivate/".concat(result.getValue().getJobId().toString()))
                 .then()
                 .statusCode(200);
     }
     @Test
-    @DisplayName("deacctivate job: notvalid input")
-    public void testNotValid() {
+    @DisplayName("Deacrtivate job: valid input, but already activated")
+    public void testBasicAlreadyExistDeactivating() {
+        //CommandHandler<CreateJob, JobCreated> handler = null;
+
+        CreateJob command = new CreateJob("Teacher", true);
+        Result<JobCreated> result = handler.handle(command);
+
+//        Map<String, Object> jsonAsMap = new HashMap<>();
+//        ObjectId id = new ObjectId("64faf6ad341e202c91f76c84");
+//        jsonAsMap.put("_id", id);
+
+        given()
+                .contentType("application/json")
+                .when()
+                .delete("/jobs/deactivate/".concat(result.getValue().getJobId().toString()))
+                .then()
+                .statusCode(200);
+    }
+    @Test
+    @DisplayName("Deactivate job: invalid input")
+    public void testJobDeactivateWithInvalidInput() {
         Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "1000");
+        ObjectId id = new ObjectId("64faf6ad322e202c91f76c84");
+        jsonAsMap.put("_id", id);
+
         given()
                 .contentType("application/json")
                 .body(jsonAsMap)
                 .when()
-                .put("/jobs/deactivateJob")
+                .delete("/jobs/deactivate/"+id)
                 .then()
                 .statusCode(400);
     }
-    @Test
-    @DisplayName("deactivating job with valid id, which is already deactivated")
-    public void testValid2() {
-        Map<String, Object> jsonAsMap = new HashMap<>();
-        jsonAsMap.put("id", "2");
 
-        given()
-                .contentType("application/json")
-                .body(jsonAsMap)
-                .when()
-                .put("/jobs/deactivateJob")
-                .then()
-                .statusCode(200);
-    }
 
-//    @Test
-//    @DisplayName("deactivating job with  valid id ")
-//    void test0() {
-//        assertEquals(200, deactivedJobController.deactivateJob("1"),
-//                "Valid should work");
-//    }
-//
-//    @Test
-//    @DisplayName("deactivating job with invalid id ")
-//    void test1() {
-//        assertEquals(400, deactivedJobController.deactivateJob("6"),
-//                "Not valid should have an error");
-//    }
-//    @Test
-//    @DisplayName("activating job with valid id, which is already activated")
-//    void test2() {
-//        assertEquals(200, deactivedJobController.deactivateJob("2"),
-//                "Valid, should stay deactivated, and do not change anything");
-//    }
 }
